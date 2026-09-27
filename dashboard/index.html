@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChronoLight — Control</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="phone-wrap">
+    <div class="phone">
+      <header class="topbar">
+        <div class="brand">ChronoLight</div>
+        <button class="icon-btn" id="openSettingsBtn" aria-label="Settings">
+          <span class="gear">⚙︎</span>
+        </button>
+      </header>
+
+      <section class="hero">
+        <div class="hero-row">
+          <div class="hero-title">
+            <span class="sun">☀︎</span>
+            <span class="title">ChronoLight</span>
+            <span class="pipe">|</span>
+            <span class="mode-pill" id="modePill">MANUAL</span>
+          </div>
+
+          <button class="pill-btn" id="goDashboardBtn" type="button">
+            View Dashboard
+          </button>
+        </div>
+
+        <div class="hero-sub" id="heroSubtitle">
+          Controls: ramps, auto compensation, manual brightness.
+        </div>
+
+        <div class="updated">
+          Last updated <span id="updatedTime" data-updated-at="">—</span>
+          <span class="pipe">|</span>
+          <span id="connPill" class="muted">Status: —</span>
+        </div>
+
+        <div class="tabs">
+          <button class="tab" data-tab="auto" id="tabAuto">AUTO</button>
+          <button class="tab active" data-tab="manual" id="tabManual">MANUAL</button>
+          <button class="tab" data-tab="off" id="tabOff">OFF</button>
+        </div>
+      </section>
+
+      <main class="content">
+
+        <section class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Smart Controls</div>
+              <div class="card-sub" id="controlsSub">
+                Manual ramps or automatic compensation.
+              </div>
+            </div>
+            <div class="badge" id="rampStatusBadge">READY</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="toggle-row">
+            <div class="toggle-left">
+              <span class="cloud">☁︎</span>
+              <span>Auto compensate when dim</span>
+            </div>
+            <label class="switch">
+              <input id="autoModeToggle" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="muted small" id="autoHint" style="margin-top: 8px;">
+            When enabled, the lamp increases brightness if ambient light is below a threshold.
+          </div>
+
+          <div class="divider"></div>
+
+          <!-- Sleep Safety -->
+          <div class="toggle-row">
+            <div class="toggle-left">
+              <span class="moon">☾</span>
+              <span>Sleep Safety (motion night light)</span>
+            </div>
+            <label class="switch">
+              <input id="sleepSafetyToggle" type="checkbox" />
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="two-col" style="margin-top: 10px;">
+            <div class="field">
+              <label for="sleepSafetyPctInput">Night brightness (%)</label>
+              <input id="sleepSafetyPctInput" type="number" min="1" max="30" step="1" value="12" />
+            </div>
+            <div class="field">
+              <label for="sleepSafetyDurationInput">Auto-off after (sec)</label>
+              <input id="sleepSafetyDurationInput" type="number" min="5" max="600" step="5" value="30" />
+            </div>
+          </div>
+
+          <div class="muted small" id="sleepSafetyHint" style="margin-top: 8px;">
+            When enabled, motion in a dim room turns the light on at a low sleep-friendly level,
+            then automatically turns it off after the timer.
+            If you turn the light OFF manually, it won’t re-trigger for a few minutes.
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="two-col">
+            <button class="pill-btn primary" id="wakeUpBtn" type="button">
+              Wake Up
+            </button>
+            <button class="pill-btn" id="windDownBtn" type="button">
+              Wind Down
+            </button>
+          </div>
+
+          <div class="two-col" style="margin-top: 10px;">
+            <div class="field">
+              <label for="rampDurationInput">Ramp duration (sec)</label>
+              <input id="rampDurationInput" type="number" min="5" max="600" step="5" value="20" />
+            </div>
+
+            <div class="field">
+              <label for="rampTargetInput">Wake target (%)</label>
+              <input id="rampTargetInput" type="number" min="0" max="100" step="1" value="60" />
+            </div>
+          </div>
+
+          <div class="two-col" style="margin-top: 10px;">
+            <button class="pill-btn" id="cancelRampBtn" type="button">Cancel Ramp</button>
+            <div class="muted small" id="rampNote" style="align-self:center;">—</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <div>
+              <div class="card-title">Brightness</div>
+              <div class="card-sub" id="brightnessSub">
+                Manual override (cancels ramp)
+              </div>
+            </div>
+            <div class="badge" id="brightnessPct">35%</div>
+          </div>
+
+          <div class="slider-wrap">
+            <input id="brightnessSlider" type="range" min="0" max="100" value="35" />
+            <div class="range-meta">
+              <span class="muted">0%</span>
+              <span class="muted">100%</span>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <div id="autoNote" class="muted"></div>
+        </section>
+
+        <button class="cta" id="viewDashboardBtn" type="button">
+          View Dashboard
+        </button>
+      </main>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div class="modal-title" id="modalTitle">Settings</div>
+        <button class="icon-btn small" id="closeModalBtn" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="muted small">
+          Later: lux threshold, preferred max brightness, motion-required auto, etc.
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="pill-btn" id="closeModalBtn2" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="/script.js?v=4"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ChronoLight — Dashboard</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="phone-wrap">
+    <div class="phone">
+      <header class="topbar">
+        <div class="brand">ChronoLight</div>
+        <button class="icon-btn" id="openSettingsBtn" aria-label="Settings">
+          <span class="gear">⚙︎</span>
+        </button>
+      </header>
+
+      <main class="content">
+        <div class="dash-top">
+          <div class="updated">
+            Last updated: <span id="dashUpdatedTime" data-updated-at="">—</span>
+            <span class="pipe">|</span>
+            <span id="dashConnPill" class="muted">Status: —</span>
+          </div>
+          <div class="dash-actions">
+            <button class="pill-btn primary" id="backBtn" type="button">← Back</button>
+          </div>
+        </div>
+
+        <!-- Optional note area -->
+        <div id="autoNoteDash" class="muted"></div>
+
+        <section class="grid">
+          <div class="metric-card">
+            <div class="metric-head">
+              <span class="sun">☀︎</span>
+              <span class="metric-title">Light Level</span>
+            </div>
+            <div class="metric-value">
+              <span id="lightLux">—</span> <span class="unit">lux</span>
+            </div>
+            <div class="chip warn" id="lightLabel">—</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-head">
+              <span class="thermo">🌡</span>
+              <span class="metric-title">Temperature</span>
+            </div>
+            <div class="metric-value">
+              <span id="tempC">—</span><span class="unit">°C</span>
+            </div>
+            <div class="chip ok" id="tempLabel">—</div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-head">
+              <span class="bell">🔔</span>
+              <span class="metric-title">Motion</span>
+            </div>
+            <div class="metric-value" id="motionNow">—</div>
+            <div class="metric-sub">Last Motion: <span id="lastMotion">—</span></div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-head">
+            <div class="card-title-row">
+              <span class="plus">＋</span>
+              <span class="card-title">System</span>
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div class="mini-stat">
+              <div class="mini-label">Brightness</div>
+              <div class="mini-value" id="dashBrightness">—</div>
+            </div>
+            <div class="mini-stat">
+              <div class="mini-label">Auto</div>
+              <div class="mini-value" id="dashAuto">—</div>
+            </div>
+
+            <!-- NEW -->
+            <div class="mini-stat">
+              <div class="mini-label">Sleep Safety</div>
+              <div class="mini-value" id="dashSleepSafety">—</div>
+            </div>
+          </div>
+
+          <div class="muted small" style="margin-top: 10px;">
+            Dashboard is read-only. Use the Control page for ramps and manual brightness.
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Settings modal placeholder -->
+  <div class="modal-backdrop" id="modalBackdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-head">
+        <div class="modal-title" id="modalTitle">Settings</div>
+        <button class="icon-btn small" id="closeModalBtn" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="muted small">
+          Later: lux threshold, motion-required auto, preferred targets, etc.
+        </div>
+      </div>
+      <div class="modal-foot">
+        <button class="pill-btn" id="closeModalBtn2" type="button">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script defer src="/script.js?v=3"></script>
+</body>
+</html>
